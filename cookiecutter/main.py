@@ -32,7 +32,7 @@ def cookiecutter(
     directory=None,
     skip_if_file_exists=False,
     accept_hooks=True,
-    custom_filters=custom_filters,
+    custom_filters={},
 ):
     """
     Run Cookiecutter just as if using it from the command line.
