@@ -111,6 +111,7 @@ def cookiecutter(
         skip_if_file_exists=skip_if_file_exists,
         output_dir=output_dir,
         accept_hooks=accept_hooks,
+        custom_filters=custom_filters,
     )
 
     # Cleanup (if required)

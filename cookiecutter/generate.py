@@ -68,7 +68,7 @@ def apply_overwrites_to_context(context, overwrite_context):
 
 
 def generate_context(
-    context_file='cookiecutter.json', default_context=None, extra_context=None
+        context_file='cookiecutter.json', default_context=None, extra_context=None
 ):
     """Generate the context for a Cookiecutter project template.
 
@@ -190,7 +190,7 @@ def generate_file(project_dir, infile, context, env, skip_if_file_exists=False):
 
 
 def render_and_create_dir(
-    dirname, context, output_dir, environment, overwrite_if_exists=False
+        dirname, context, output_dir, environment, overwrite_if_exists=False
 ):
     """Render name of a directory, create the directory, return its path."""
     name_tmpl = environment.from_string(dirname)
@@ -227,7 +227,7 @@ def ensure_dir_is_templated(dirname):
 
 
 def _run_hook_from_repo_dir(
-    repo_dir, hook_name, project_dir, context, delete_project_on_failure
+        repo_dir, hook_name, project_dir, context, delete_project_on_failure
 ):
     """Run hook from repo directory, clean project directory if hook fails.
 
@@ -253,12 +253,13 @@ def _run_hook_from_repo_dir(
 
 
 def generate_files(
-    repo_dir,
-    context=None,
-    output_dir='.',
-    overwrite_if_exists=False,
-    skip_if_file_exists=False,
-    accept_hooks=True,
+        repo_dir,
+        context=None,
+        output_dir='.',
+        overwrite_if_exists=False,
+        skip_if_file_exists=False,
+        accept_hooks=True,
+        custom_filters={},
 ):
     """Render the templates and saves them to files.
 
@@ -278,6 +279,8 @@ def generate_files(
     unrendered_dir = os.path.split(template_dir)[1]
     ensure_dir_is_templated(unrendered_dir)
     env = StrictEnvironment(context=context, keep_trailing_newline=True, **envvars)
+
+    env.filters.update(custom_filters)
     try:
         project_dir, output_directory_created = render_and_create_dir(
             unrendered_dir, context, output_dir, env, overwrite_if_exists
