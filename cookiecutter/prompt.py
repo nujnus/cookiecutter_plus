@@ -168,7 +168,7 @@ def prompt_choice_for_config(cookiecutter_dict, env, key, options, no_input):
     return read_user_choice(key, rendered_options)
 
 
-def prompt_for_config(context, no_input=False):
+def prompt_for_config(context, no_input=False, custom_filters={}):
     """Prompt user to enter a new config.
 
     :param dict context: Source for field names and sample values.
@@ -176,6 +176,7 @@ def prompt_for_config(context, no_input=False):
     """
     cookiecutter_dict = OrderedDict([])
     env = StrictEnvironment(context=context)
+    env.filters.update(custom_filters)
 
     # First pass: Handle simple and raw variables, plus choices.
     # These must be done first because the dictionaries keys and
