@@ -227,7 +227,7 @@ def ensure_dir_is_templated(dirname):
 
 
 def _run_hook_from_repo_dir(
-        repo_dir, hook_name, project_dir, context, delete_project_on_failure
+        repo_dir, hook_name, project_dir, context, delete_project_on_failure, custom_filters={}
 ):
     """Run hook from repo directory, clean project directory if hook fails.
 
@@ -305,7 +305,7 @@ def generate_files(
 
     if accept_hooks:
         _run_hook_from_repo_dir(
-            repo_dir, 'pre_gen_project', project_dir, context, delete_project_on_failure
+            repo_dir, 'pre_gen_project', project_dir, context, delete_project_on_failure, custom_filters=custom_filters,
         )
 
     with work_in(template_dir):
