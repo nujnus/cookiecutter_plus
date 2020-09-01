@@ -240,7 +240,7 @@ def _run_hook_from_repo_dir(
     """
     with work_in(repo_dir):
         try:
-            run_hook(hook_name, project_dir, context)
+            run_hook(hook_name, project_dir, context, custom_filters=custom_filters)
         except FailedHookException:
             if delete_project_on_failure:
                 rmtree(project_dir)

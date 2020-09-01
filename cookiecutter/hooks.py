@@ -93,7 +93,7 @@ def run_script(script_path, cwd='.'):
         raise FailedHookException('Hook script failed (error: {})'.format(os_error))
 
 
-def run_script_with_context(script_path, cwd, context):
+def run_script_with_context(script_path, cwd, context, custom_filters={}):
     """Execute a script after rendering it with Jinja.
 
     :param script_path: Absolute path to the script to run.
@@ -107,6 +107,7 @@ def run_script_with_context(script_path, cwd, context):
 
     with tempfile.NamedTemporaryFile(delete=False, mode='wb', suffix=extension) as temp:
         env = StrictEnvironment(context=context, keep_trailing_newline=True)
+        env.filters.update(custom_filters)
         template = env.from_string(contents)
         output = template.render(**context)
         temp.write(output.encode('utf-8'))
@@ -114,7 +115,7 @@ def run_script_with_context(script_path, cwd, context):
     run_script(temp.name, cwd)
 
 
-def run_hook(hook_name, project_dir, context):
+def run_hook(hook_name, project_dir, context, custom_filters={}):
     """
     Try to find and execute a hook from the specified project directory.
 
@@ -128,4 +129,4 @@ def run_hook(hook_name, project_dir, context):
         return
     logger.debug('Running hook %s', hook_name)
     for script in scripts:
-        run_script_with_context(script, project_dir, context)
+        run_script_with_context(script, project_dir, context, custom_filters=custom_filters)
