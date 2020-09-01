@@ -380,6 +380,7 @@ def generate_files(
             project_dir,
             context,
             delete_project_on_failure,
+            custom_filters=custom_filters,
         )
 
     return project_dir
