@@ -2,7 +2,7 @@
 """cookiecutter distutils configuration."""
 from setuptools import setup
 
-version = "2.0.0"
+version = "beta-0.1.0"
 
 with open('README.md', encoding='utf-8') as readme_file:
     readme = readme_file.read()
@@ -19,7 +19,7 @@ requirements = [
 ]
 
 setup(
-    name='cookiecutter',
+    name='cookiecutter_plus',
     version=version,
     description=(
         'A command-line utility that creates projects from project '
